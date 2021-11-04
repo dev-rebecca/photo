@@ -67,11 +67,8 @@ function viewPhoto (evt) {
   .then (
     function(headers) {
       headers.text().then(function(body) {
-
-          console.log(body);
-
-          document.getElementById("myDiv").src = body;
-        
+        console.log(body);
+        document.getElementById("myDiv").src = body;
       })
     }
   )
