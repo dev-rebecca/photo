@@ -104,12 +104,14 @@ function viewImage ($id) {
   $stmt = $dbconn->prepare($sql);
   $stmt->bindParam(':id', $id, PDO::PARAM_INT);
   $stmt->execute();
-  $row = $stmt->fetchAll(PDO::FETCH_ASSOC);
-  return $row;
+  if ($stmt->rowCount() > 0) {
+      return $stmt->fetchAll(PDO::FETCH_ASSOC);
+  }
+  return false;
 }
 
 if (isset($_POST['id'])) {
-  $imagePath="http://localhost:8080/photo/images/1635996928.png";
+  $imagePath="http://localhost:8080/photo/images/1636000257.png";
   echo($imagePath);
 }
 

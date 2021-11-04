@@ -1,71 +1,53 @@
-// function testJavascript() {
-//   console.log("working");
-// }
+// Post photo
 
-// Fetch
-// function postPhoto (evt) {
+const sample_image = document.getElementsByName('sample_image')[0];
 
-//   evt.preventDefault();
-//   let formData = new FormData()
+sample_image.addEventListener('change', () => {
 
-//   formData.append(evt.target[0].name, evt.target[0].value);
+	upload_image(sample_image.files[0]);
 
-//   fetch('./php.php', {
-//     method: 'POST',
-//     body: formData
-//   })
-// }
-
-//
-
-// const sample_image = document.getElementsByName('sample_image')[0];
-
-// sample_image.addEventListener('change', () => {
-
-// 	upload_image(sample_image.files[0]);
-
-// });
+});
 
 
-// const upload_image = (file) => {
+const upload_image = (file) => {
 
-// 	// check file type
+	// check file type
 
-// 	if(!['image/jpeg', 'image/png'].includes(file.type))
-// 	{
-// 		document.getElementById('uploaded_image').innerHTML = '<div>Only .jpg and .png image are allowed</div>';
+	if(!['image/jpeg', 'image/png'].includes(file.type))
+	{
+		document.getElementById('uploaded_image').innerHTML = '<div>Only .jpg and .png image are allowed</div>';
 
-// 		document.getElementsByName('sample_image')[0].value = '';
+		document.getElementsByName('sample_image')[0].value = '';
 		
-//         return;
-//     }
+        return;
+    }
 
-//     // check file size (< 2MB)
-//     if(file.size > 2 * 1024 * 1024)
-//     {
-//     	document.getElementById('uploaded_image').innerHTML = '<div>File must be less than 2 MB</div>';
+    // check file size (< 2MB)
+    if(file.size > 2 * 1024 * 1024)
+    {
+    	document.getElementById('uploaded_image').innerHTML = '<div>File must be less than 2 MB</div>';
 
-//     	document.getElementsByName('sample_image')[0].value = '';
-//         return;
-//     }
+    	document.getElementsByName('sample_image')[0].value = '';
+        return;
+    }
 
-//     const form_data = new FormData();
+    const form_data = new FormData();
 
-//     form_data.append('sample_image', file);
+    form_data.append('sample_image', file);
 
-//     fetch("php.php", {
-//     	method:"POST",
-//     	body : form_data
-//     }).then(function(response){
-//     	return response.json();
-//     }).then(function(responseData){
+    fetch("php.php", {
+    	method:"POST",
+    	body : form_data
+    }).then(function(response){
+    	return response.json();
+    }).then(function(responseData){
 
-//     	document.getElementById('uploaded_image').innerHTML = '<div>Image Uploaded Successfully</div> <img src="'+responseData.image_source+'" />';
+    	document.getElementById('uploaded_image').innerHTML = '<div>Image Uploaded Successfully</div> <img src="'+responseData.image_source+'" />';
 
-//     	document.getElementsByName('sample_image')[0].value = '';
+    	document.getElementsByName('sample_image')[0].value = '';
 
-//     });
-// }
+    });
+}
 
 // View photo
 function viewPhoto (evt) {
@@ -85,9 +67,11 @@ function viewPhoto (evt) {
   .then (
     function(headers) {
       headers.text().then(function(body) {
-        console.log(body);
 
-        document.getElementById("myDiv").src = body;
+          console.log(body);
+
+          document.getElementById("myDiv").src = body;
+        
       })
     }
   )
